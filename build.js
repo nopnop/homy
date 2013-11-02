@@ -16,7 +16,8 @@ var pattern = '{' + [
   '/app/**',
   '/vendor/**',
   './bower_components/angular-bootstrap-colorpicker/**',
-  './bower_components/ionicons/**!(src)',
+  './bower_components/ionicons/*.css',
+  './bower_components/ionicons/fonts/**',
   './bower_components/jquery/**',
   './bower_components/normalize-css/**',
   '/manifest.json',
@@ -32,7 +33,6 @@ var g = new Glob(pattern, {cwd: base, root: base}, function (er, files) {
     var statInput  = statCache[input] || (statCache[input] = fs.statSync(input));
 
     if(statInput.isDirectory()) {
-      debug('Ignore (directory)  : "%s"',relative(base,input));
       return done();
     }
 
