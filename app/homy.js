@@ -16,6 +16,8 @@
       $scope.background = homyStorage.data.background;
     }
 
+
+
     var saveDebounce = debounce(function() {
        homyStorage.data.links      = $scope.links;
        homyStorage.data.background = $scope.background;
@@ -25,6 +27,8 @@
     homyStorage.load().then(update).then();
 
     homyStorage.addChangeListener(update);
+
+    $scope.update = update;
 
     $scope.backgroundUpdate = function() {
       console.log('backgroundUpdate');
