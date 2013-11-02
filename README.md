@@ -6,9 +6,11 @@ This project is open-source, feel free to contribute.
 
 # Features
 
-  - Editable color scheme
-  - Automatic synchronisation
-  - Configuration: Import & export to JSON
+  - Create and edit bookmark from any page.
+  - Edit the background colors (with transparency effect)
+  - Organize bookmark using drag and drop. 
+  - Automatic synchronisation using Chrome Sync
+  - Configuration: Import & export to JSON of bookmark and configurations
 
 # Installation
 
