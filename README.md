@@ -20,6 +20,8 @@ Clone this repository, then:
 # Build
 
     DEBUG="homy*" node build.js
+    // or
+    npm start
 
 # License
 
