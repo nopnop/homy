@@ -4,14 +4,16 @@
   "name": "Homy",
   "minimum_chrome_version": "28.0",
   "description": "A pleasant-looking New Tab page for chrome - Open Source",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "offline_enabled": true,
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
     "16": "app/assets/images/homy_16_on.png",
     "19": "app/assets/images/homy_19_on.png",
     "48": "app/assets/images/homy_48_on.png",
     "128": "app/assets/images/homy_128_on.png"
   },
-  "background": { "scripts": ["app/debounce.js", "app/background.js"] },
+  "background": { "scripts": ["app/debounce.js", "app/background.js", "app/asyncTracking.js"] },
   "permissions": [
     "storage", "tabs"
   ],

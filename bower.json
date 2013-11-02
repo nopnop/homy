@@ -1,7 +1,7 @@
 {
   "name": "homy",
-  "main": "homy.js",
-  "version": "0.0.1",
+  "main": "build.js",
+  "version": "0.1.0",
   "authors": [
     "Jean Ponchon <jean.ponchon@novadiscovery.com>"
   ],
@@ -18,7 +18,6 @@
     "jquery": "~2.0.3",
     "normalize-css": "~2.1.3",
     "angular-bootstrap-colorpicker": "~2.0.4",
-    "bootstrap": "~3.0.1",
     "ionicons": "~1.2.3"
   }
 }
