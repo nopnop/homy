@@ -1,0 +1,172 @@
+<!doctype html>
+<html ng-app="homyApp" ng-csp>
+  <head>
+    <title>New Tab</title>
+    <link rel="stylesheet" href="../../bower_components/normalize-css/normalize.css"/>
+    <link rel="stylesheet" href="../../bower_components/ionicons/ionicons.css"/>
+    <link rel="stylesheet" href="../styles/fonts.css"/>
+    <link rel="stylesheet" href="../styles/common.css"/>
+    <link rel="stylesheet" href="../styles/homy.css"/>
+    <link rel="stylesheet" href="../../bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+    <script src="../../bower_components/jquery/jquery.min.js"></script>
+    <script src="../../vendor/jquery-ui-1.10.3.custome-sortable-only.min.js"></script>
+    <script src="../../vendor/angular.min.js"></script>
+    <script src="../../vendor/sortable.js"></script>
+    <script src="../../bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+    <script src="../service-storage.js"></script>
+    <script src="../debounce.js"></script>
+    <script src="../homy.js"></script>
+  </head>
+  <body>
+    <div id="main" ng-controller="LinksListCtrl" ng-style="{background:background}">
+      <div id="menu">
+        <button
+        title                = "Set background color"
+        colorpicker          = "rgb"
+        colorpicker-position = "top"
+        ng-model             = "background"
+        ng-change            = "backgroundUpdate()">
+          <i class="control configure icon-gear-a"></i>
+        </button>
+
+        <button title="Import configuration" ng-click="import()">
+          <i class="control import icon-ios7-download"></i>
+        </button>
+
+        <input type="file" id="importInput" style="display:none"/>
+
+        <button title="Export configuration" ng-click="export()">
+          <i class="control export icon-ios7-upload"></i>
+        </button>
+
+
+      </div>
+
+      <ul ui-sortable="sortableOptions" ng-model="links" id="homy-list">
+
+        <li
+        ng-repeat ="link in links"
+        class     ="ui-state-default flip-container"
+        id        ="link_{{link.id}}"
+        ng-class  ="{true:'hover', false:''}[link.$edit]">
+
+          <div class="flipper" ng-style="link.style">
+            <div class="front">
+              <a
+              href  ="{{link.url || 'javascript:void()'}}"
+              title ="{{link.name}} : {{link.url}}"
+              class ="blocklink">
+                <span class="shortname">{{link.name | shortname}}</span>
+                <span class="name">{{link.name | name}}</span>
+                <i
+                class    ="control configure icon-gear-a"
+                ng-click ="edit($event, link)"></i>
+              </a>
+            </div>
+
+            <div class="back">
+              <div ng-hide="link.$confirm_delete">
+                <label for="name">Name</label>
+                <input
+                name        ="name"
+                type        ="text"
+                ng-model    ="link.name"
+                placeholder ="Name"
+                class       ="edit-name"
+                focus-me    ="link.$focusInput"
+                ng-keypress ="submit($event, link)"/>
+
+                <label for="name">Url</label>
+                <input
+                type        ="text"
+                ng-model    ="link.url"
+                placeholder ="http://"
+                class       ="edit-url"
+                ng-keypress ="submit($event, link)"/>
+
+                <label for="bckg">Background</label>
+                <input
+                name        ="bckg"
+                type        ="button"
+                colorpicker ="rgba"
+                type        ="text"
+                ng-model    ="link.style.backgroundColor"/>
+
+                <i
+                class    ="control configure icon-checkmark-circled"
+                ng-click ="done($event, link)"></i>
+                <i
+                class    ="control delete icon-trash-b"
+                ng-click ="link.$confirm_delete = true"></i>
+
+              </div>
+
+              <div class="confirm_delete" ng-show="link.$confirm_delete">
+                <label>Delete ?</label>
+                <a
+                href     ="#"
+                ng-click ="delete($event, link)"
+                title    ="Yes, delete">
+                Yes, delete<br/><i class="delete icon-trash-b"></i></a>
+                <a
+                href     ="#"
+                ng-click ="link.$confirm_delete=false"
+                title    ="No, undo"><i class="icon-close-circled"></i> No, undo</a>
+              </div>
+            </div>
+
+          </div>
+
+        </li>
+
+        <li
+        class         ="addnew ui-state-default ui-state-disabled flip-container"
+        ng-class      ="{true:'hover', false:''}[link.$edit]"
+        ng-controller ="AddNewCtrl">
+          <div class="flipper" ng-style="link.style">
+            <div class="front">
+              <a
+              href     ="#"
+              ng-click ="edit($event, link)"
+              title    ="Add bookmark"
+              class    ="blocklink">
+                <i class="control add icon-plus-circled" ></i>
+              </a>
+            </div>
+            <div class="back">
+              <label for="name">Name</label>
+              <input
+              name        ="name"
+              type        ="text"
+              ng-model    ="link.name"
+              placeholder ="Name"
+              class       ="edit-name"
+              focus-me    ="link.$focusInput"
+              ng-keypress ="submit($event, link)"/>
+
+              <label for="name">Url</label>
+              <input
+              type        ="text"
+              ng-model    ="link.url"
+              placeholder ="http://"
+              class       ="edit-url"
+              ng-keypress ="submit($event, link)"/>
+
+              <label for="bckg">Background</label>
+              <input
+              name        ="bckg"
+              type        ="button"
+              colorpicker ="rgba"
+              type        ="text"
+              ng-model    ="link.style.backgroundColor"
+              ng-init     ="rgba(0,0,0,0)"/>
+
+              <i class="control configure icon-checkmark-circled" ng-click="done($event, link)"></i>
+              <i class="control delete icon-close-circled" ng-click="undo($event, link)"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

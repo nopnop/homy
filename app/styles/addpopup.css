@@ -1,0 +1,38 @@
+
+body {
+  min-width: 350px;
+}
+
+input {
+  background  : none;
+  border-color: rgba(0,0,0,.1);
+  border-style: solid;
+  border-width: 0px 1px 1px 1px;
+  color       : #333e4c;
+  display     : block;
+  font-family : sans-serif;
+  font-size   : 13px;
+  line-height : 15px;
+  margin      : 0px 2px 6px 2px;
+  outline     : none;
+  padding     : 2px;
+  width       : 100%;
+}
+
+label {
+  background    : #333e4c;
+  color         : white;
+  display       : block;
+  font-family   : sans-serif;
+  font-size     : xx-small;
+  font-weight   : bold;
+  margin        : 2px 2px 0px 2px;
+  padding       : 2px;
+  text-align    : left;
+  text-transform: uppercase;
+  width         : 100%;
+}
+
+.ok {
+  float: right;
+}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html ng-app="addpopupApp" ng-csp>
+  <head>
+    <title>Add homy bookmark</title>
+    <link rel="stylesheet" href="../styles/common.css"/>
+    <link rel="stylesheet" href="../styles/addpopup.css"/>
+    <script src="../../vendor/angular.min.js"></script>
+    <script src="../../bower_components/angular-ui-sortable/src/sortable.js"></script>
+    <script src="../service-storage.js"></script>
+    <script src="../service-currenttab.js"></script>
+    <script src="../addpopup.js"></script>
+  </head>
+  <body>
+    <section ng-controller="EditBookmarkCtrl">
+      <div ng-hide="deleted">
+        <div>Bookmark added!</div>
+        <div ng-show="link.id">
+          <label for="name">Name:</label>
+          <input
+            name        ="name"
+            ng-model    ="link.name"
+            ng-change   ="onChange()"
+            ng-keypress ="submit($event)"/>
+
+          <label for="url">Href:</label>
+          <input
+            name        ="url"
+            ng-model    ="link.url"
+            ng-change   ="onChange()"
+            ng-keypress ="submit($event)"/>
+
+          <button ng-click="removeBookmark()">Remove</button>
+          <button class="ok" ng-click="close()">OK</button>
+        </div>
+      </div>
+      <div ng-show="deleted">
+        Bookmark deleted.
+      </div>
+    </section>
+  </body>
+</html>
+
