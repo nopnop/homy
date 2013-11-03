@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Homy",
+  "name": "Homy New Tab",
+  "short_name": "Homy",
   "minimum_chrome_version": "28.0",
   "description": "A pleasant-looking New Tab page for chrome - Open Source",
   "version": "0.1.3",
