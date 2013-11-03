@@ -12,6 +12,7 @@ function addUrl(tabId, changeInfo, tab) {
 
 function updateTabStar(tab, links) {
   if(links.some(function(b) {
+    if(!b) return;
     return b.url === tab.url
   })) {
     chrome.pageAction.setIcon({

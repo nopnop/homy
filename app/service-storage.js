@@ -18,6 +18,29 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
     links: []
   };
 
+  function cleanup(data) {
+    // Normalize data using default values
+    data = angular.extend({}, DEFAULT, data);
+
+    // Remove invalid links (like drag&drop bug)
+    data.links = data.links.filter(function(b) {
+      if(!b) return false;
+      return true;
+    });
+
+    // Clean up link
+    data.links = data.links.map(function(b) {
+      // Limit name size
+      b.name = b.name.substr(0,128);
+      // Limit url size:
+      b.url  = b.name.substr(0,2048);
+
+      return b;
+    });
+
+    return data;
+  }
+
   var service = {
     data: null
 
@@ -29,7 +52,7 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
           return d.reject(chrome.runtime.lastError);
         }
         if(value._rev) {
-          service.data = angular.extend({}, DEFAULT, value);
+          service.data = cleanup(value);
         } else {
           service.data = DEFAULT;
         }
@@ -47,6 +70,8 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
       }
 
       service.data._rev = (new Date()).getTime();
+
+      service.data = cleanup(service.data);
 
       chrome.storage.local.set(cleanObject(service.data), function() {
         $rootScope.$apply(function() {
@@ -70,9 +95,7 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
       }
       switch(data._version) {
         case "1":
-          // Normalize data using default values
-          data = angular.extend({}, DEFAULT, data);
-          service.data = data;
+          service.data = cleanup(data);
           return service.save();
         default:
           alert('Sorry, this file is from a earlier version of Homy, please update to the last version to import this file.');
