@@ -71,7 +71,7 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
 
       service.data._rev = (new Date()).getTime();
 
-      service.data = cleanup(data);
+      service.data = cleanup(service.data);
 
       chrome.storage.local.set(cleanObject(service.data), function() {
         $rootScope.$apply(function() {
