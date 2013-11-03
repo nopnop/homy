@@ -45,31 +45,24 @@
     };
 
 
-    $scope.edit = function(event, link) {
-      event.preventDefault();
+    $scope.edit = function(link) {
       link.$edit       = true;
       link.$focusInput = true;
     }
 
-    $scope.delete = function(event, link) {
-      event.preventDefault();
+    $scope.delete = function(link) {
       homyStorage.removeLink(link).then(function() {
         $scope.links = homyStorage.data.links;
       });
     }
 
-    $scope.done = function(event, link) {
-      event.preventDefault();
+    $scope.onSubmit = function(link) {
+      console.log('Submit');
       link.$edit = false;
       if(!/^http/.test(link.url)) {
         link.url = "http://" + link.url;
       }
       saveDebounce();
-    }
-
-    $scope.submit = function(event, link) {
-      if(event.charCode !== 13) return;
-      $scope.done(event, link);
     }
 
     $scope.import = function() {
@@ -121,19 +114,17 @@
     }
     resetScope();
 
-    $scope.add = function(event, link) {
-      event.preventDefault();
-      link.$edit       = true;
-      link.$focusInput = true;
+    $scope.add = function() {
+      $scope.link.$edit       = true;
+      $scope.link.$focusInput = true;
     }
 
-    $scope.undo = function(event, link) {
-      event.preventDefault();
-      link.$edit       = false;
+    $scope.undo = function() {
+      resetScope();
     }
 
-    $scope.done = function(event, link) {
-      event.preventDefault();
+    $scope.onSubmit = function() {
+      var link = $scope.link;
       if(link.url === '') return resetScope();
       if(!/^http/.test(link.url)) {
         link.url = "http://" + link.url;
@@ -149,14 +140,9 @@
       });
     }
 
-    $scope.submit = function(event, link) {
-      if(event.charCode !== 13) return;
-      $scope.done(event, link);
-    }
-
   }]);
 
-  app.directive('focusMe', function($timeout) {
+  app.directive('focusMe', function() {
     return {
       link: function(scope, element, attrs) {
         scope.$watch(attrs.focusMe, function(value) {
@@ -168,6 +154,23 @@
       }
     };
   });
+
+  app.directive('bookmarkEditor', function() {
+    return {
+      restrict: 'E',
+      scope: {
+        bookmark:'=bookmark',
+        onSubmit:'&onSubmit'
+      },
+      templateUrl: '/app/views/partials/bookmark-editor.html',
+      link: function($scope) {
+        $scope.keypress = function($event) {
+          if(event.charCode !== 13) return;
+          if($scope.onSubmit) $scope.onSubmit();
+        }
+      }
+    }
+  })
 
 
   var matchInput = /^\[([^\]]+)\](.*)/;

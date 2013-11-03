@@ -56,45 +56,30 @@
               href  ="{{link.url || 'javascript:void()'}}"
               title ="{{link.name}} : {{link.url}}"
               class ="blocklink">
-                <span class="shortname">{{link.name | shortname}}</span>
-                <span class="name">{{link.name | name}}</span>
+                <span class="shortname">
+                  {{link.name | shortname}}
+                </span>
+                <span class="name">
+                  {{link.name | name}}
+                </span>
                 <i
                 class    ="control configure icon-gear-a"
-                ng-click ="edit($event, link)"></i>
+                ng-click ="$event.preventDefault(); edit(link)"></i>
               </a>
             </div>
 
             <div class="back">
               <div ng-hide="link.$confirm_delete">
-                <label for="name">Name</label>
-                <input
-                name        ="name"
-                type        ="text"
-                ng-model    ="link.name"
-                placeholder ="Name"
-                class       ="edit-name"
-                focus-me    ="link.$focusInput"
-                ng-keypress ="submit($event, link)"/>
 
-                <label for="name">Url</label>
-                <input
-                type        ="text"
-                ng-model    ="link.url"
-                placeholder ="http://"
-                class       ="edit-url"
-                ng-keypress ="submit($event, link)"/>
-
-                <label for="bckg">Background</label>
-                <input
-                name        ="bckg"
-                type        ="button"
-                colorpicker ="rgba"
-                type        ="text"
-                ng-model    ="link.style.backgroundColor"/>
+                <bookmark-editor
+                  bookmark  ="link"
+                  on-submit ="onSubmit(link)">
+                </bookmark-editor>
 
                 <i
                 class    ="control configure icon-checkmark-circled"
-                ng-click ="done($event, link)"></i>
+                ng-click ="onSubmit(link)"></i>
+
                 <i
                 class    ="control delete icon-trash-b"
                 ng-click ="link.$confirm_delete = true"></i>
@@ -104,13 +89,13 @@
               <div class="confirm_delete" ng-show="link.$confirm_delete">
                 <label>Delete ?</label>
                 <a
-                href     ="#"
-                ng-click ="delete($event, link)"
+                href     =""
+                ng-click ="delete(link)"
                 title    ="Yes, delete">
                 Yes, delete<br/><i class="delete icon-trash-b"></i></a>
                 <a
-                href     ="#"
-                ng-click ="link.$confirm_delete=false"
+                href     =""
+                ng-click ="link.$confirm_delete = false"
                 title    ="No, undo"><i class="icon-close-circled"></i> No, undo</a>
               </div>
             </div>
@@ -126,43 +111,24 @@
           <div class="flipper" ng-style="link.style">
             <div class="front">
               <a
-              href     ="#"
-              ng-click ="edit($event, link)"
+              href     =""
+              ng-click ="add()"
               title    ="Add bookmark"
               class    ="blocklink">
                 <i class="control add icon-plus-circled" ></i>
               </a>
             </div>
             <div class="back">
-              <label for="name">Name</label>
-              <input
-              name        ="name"
-              type        ="text"
-              ng-model    ="link.name"
-              placeholder ="Name"
-              class       ="edit-name"
-              focus-me    ="link.$focusInput"
-              ng-keypress ="submit($event, link)"/>
-
-              <label for="name">Url</label>
-              <input
-              type        ="text"
-              ng-model    ="link.url"
-              placeholder ="http://"
-              class       ="edit-url"
-              ng-keypress ="submit($event, link)"/>
-
-              <label for="bckg">Background</label>
-              <input
-              name        ="bckg"
-              type        ="button"
-              colorpicker ="rgba"
-              type        ="text"
-              ng-model    ="link.style.backgroundColor"
-              ng-init     ="rgba(0,0,0,0)"/>
-
-              <i class="control configure icon-checkmark-circled" ng-click="done($event, link)"></i>
-              <i class="control delete icon-close-circled" ng-click="undo($event, link)"></i>
+              <bookmark-editor
+                bookmark="link"
+                on-submit="onSubmit()">
+              </bookmark-editor>
+              <i
+              class    ="control configure icon-checkmark-circled"
+              ng-click ="onSubmit()"></i>
+              <i
+              class    ="control delete icon-close-circled"
+              ng-click ="undo()"></i>
             </div>
           </div>
         </li>

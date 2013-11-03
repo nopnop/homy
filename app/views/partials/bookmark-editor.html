@@ -1,0 +1,28 @@
+
+  <label for="name">Name</label>
+  <input
+  name        ="name"
+  type        ="text"
+  ng-model    ="bookmark.name"
+  placeholder ="Name"
+  class       ="edit-name"
+  focus-me    ="bookmark.$focusInput"
+  ng-keypress ="keypress($event)"/>
+
+  <label for="name">Url</label>
+  <input
+  type        ="text"
+  ng-model    ="bookmark.url"
+  placeholder ="http://"
+  class       ="edit-url"
+  ng-keypress ="keypress($event)"/>
+
+  <label for="bckg">Background</label>
+  <input
+  name        ="bckg"
+  type        ="button"
+  colorpicker ="rgba"
+  type        ="text"
+  ng-model    ="bookmark.style.backgroundColor"
+  ng-init     ="rgba(0,0,0,0)"/>
+
