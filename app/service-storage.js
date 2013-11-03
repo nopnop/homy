@@ -33,7 +33,7 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
       // Limit name size
       b.name = b.name.substr(0,128);
       // Limit url size:
-      b.url  = b.name.substr(0,2048);
+      b.url  = b.url.substr(0,2048);
 
       return b;
     });
