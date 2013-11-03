@@ -31,7 +31,6 @@
     $scope.update = update;
 
     $scope.backgroundUpdate = function() {
-      console.log('backgroundUpdate');
       saveDebounce();
     }
 
@@ -74,7 +73,6 @@
     }
 
     $scope.import = function() {
-      console.log('import');
       $('#importInput').trigger('click');
     }
 
@@ -97,7 +95,6 @@
 
     $scope.export = function() {
       var content = angular.toJson(homyStorage.data);
-      console.log('exports', content);
       var file    = new Blob([content], {type : "application/json;charset=UTF-8"});
       var a       = document.createElement('a');
       a.href      = ( window.webkitURL || window.URL ).createObjectURL(file);
@@ -147,7 +144,6 @@
         url: link.url,
         style: link.style
       }).then(function() {
-        console.log('Ok added');
         resetScope();
         $scope.$parent.update();
       });
