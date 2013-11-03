@@ -57,7 +57,6 @@
     }
 
     $scope.onSubmit = function(link) {
-      console.log('Submit');
       link.$edit = false;
       if(!/^http/.test(link.url)) {
         link.url = "http://" + link.url;
