@@ -22,7 +22,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
     data: null
 
     ,load: function() {
-      console.log('Load')
       var d = $q.defer();
       chrome.storage.local.get(function(value) {
 
@@ -34,7 +33,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
         } else {
           service.data = DEFAULT;
         }
-        console.log('Resolve ...', service.data);
         d.resolve(service.data);
 
       });
@@ -50,17 +48,12 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
 
       service.data._rev = (new Date()).getTime();
 
-      console.log('Save...', service.data);
-
       chrome.storage.local.set(cleanObject(service.data), function() {
         $rootScope.$apply(function() {
           if(chrome.runtime.lastError) {
-            console.log('save error');
             d.reject(chrome.runtime.lastError);
           } else {
-            console.log('save done');
             d.resolve(true);
-            console.log('save done and resolved');
           }
         });
       });
@@ -75,7 +68,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
         alert('Invalid file content: Is it a valid Homy file?');
         return;
       }
-      console.log(data);
       switch(data._version) {
         case "1":
           // Normalize data using default values
@@ -89,7 +81,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
     }
 
     ,getLinkFor: function(url, title) {
-      console.log('getLinkFor(%s,%s)', url, title)
       return service.load().then(function(data) {
         var link;
         data.links.some(function(b) {
@@ -100,7 +91,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
           return false;
         });
         if(link) {
-          console.log('getLinkFor ... Ok, found', link);
           return link;
         }
         if(!link) {
@@ -109,13 +99,9 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
             url : url || '',
             name: title || ''
           }
-          console.log('getLinkFor ... Not found, create and save', link);
           data.links.push(link);
           return service.save(data).then(function() {
-            console.log('getLinkFor ... Saved, return link', link)
             return link
-          }, function() {
-            console.log('ERR')
           });
         }
       })
@@ -142,7 +128,6 @@ app.factory('homyStorage', ['$q', '$rootScope', function($q, $rootScope) {
     }
 
     ,removeLink: function(link) {
-      console.log('remove link ', link.id)
       return service.load().then(function(data) {
         data.links = data.links.filter(function(b) {
           return (b.id !== link.id);
