@@ -10,7 +10,6 @@
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "icons": {
     "16": "app/assets/images/homy_16_on.png",
-    "19": "app/assets/images/homy_19_on.png",
     "48": "app/assets/images/homy_48_on.png",
     "128": "app/assets/images/homy_128_on.png"
   },
