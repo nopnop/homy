@@ -1,7 +1,7 @@
 {
   "name": "homy",
   "main": "build.js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "authors": [
     "Jean Ponchon <jean.ponchon@novadiscovery.com>"
   ],
