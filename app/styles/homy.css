@@ -8,6 +8,8 @@
   top             : 0;
 }
 
+
+
 /* Menu */
 
 #menu {
@@ -42,6 +44,42 @@
   text-shadow: 0px 0px 3px rgba(0,0,0,.3);
 }
 
+#menu .zoom_control {
+  float: right;
+}
+
+
+#menu .zoom_control input {
+  -webkit-appearance: none;
+  background-color: rgba(255,255,255,.1);
+  outline: none;
+  border: 0px solid rgba(255,255,255,.2);
+  border-radius:3px;
+}
+
+#menu .zoom_control input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: rgba(255,255,255,.4);
+    width: 10px;
+    border-radius:3px;
+    height: 6px;
+    margin: 1px;
+  -webkit-transition: 500ms;
+}
+#menu .zoom_control:hover input::-webkit-slider-thumb {
+    background-color:white;
+}
+
+#menu label {
+  font-size: small;
+  margin: 0 5px 0 0;
+  -webkit-transition: 500ms;
+  color: rgba(255,255,255,.1);
+}
+
+#menu .zoom_control:hover label {
+  color: white;
+}
 
 /* Boorkmark list and edition */
 
