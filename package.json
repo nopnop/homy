@@ -6,6 +6,7 @@
   "scripts": {
     "start": "DEBUG='homy*' node build.js",
     "build": "DEBUG='homy*' node build.js",
+    "pack": "npm run build && cd dist && zip -r ../homy-extension.zip homy/",
     "lint": "eslint app/**/*.js build.js",
     "lint:fix": "eslint app/**/*.js build.js --fix",
     "test": "echo \"Error: no test specified yet\" && exit 1"
