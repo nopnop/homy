@@ -1,0 +1,46 @@
+/* Unicode icon styles */
+.icon-gear-a:before {
+  content: "⚙";
+}
+
+.icon-ios7-download:before {
+  content: "⬆";
+}
+
+.icon-ios7-upload:before {
+  content: "⬇";
+}
+
+.icon-checkmark-circled:before {
+  content: "✓";
+}
+
+.icon-trash-b:before {
+  content: "🗑";
+}
+
+.icon-close-circled:before {
+  content: "✕";
+}
+
+.icon-plus-circled:before {
+  content: "➕";
+}
+
+/* Common icon styling */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+}

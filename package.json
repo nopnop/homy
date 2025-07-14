@@ -1,28 +1,41 @@
 {
   "name": "homy",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "A pleasant-looking New Tab page for chrome - Open Source",
   "main": "build.js",
   "scripts": {
     "start": "DEBUG='homy*' node build.js",
+    "build": "DEBUG='homy*' node build.js",
+    "lint": "eslint app/**/*.js build.js",
+    "lint:fix": "eslint app/**/*.js build.js --fix",
     "test": "echo \"Error: no test specified yet\" && exit 1"
   },
   "author": {
-   "name"  : "Jean Ponchon",
-   "email" : "jean.ponchon@novadiscovery.com",
-   "url" : "http://www.novadiscovery.com/"
+    "name": "Jean Ponchon",
+    "email": "jean.ponchon@novainsilico.ai",
+    "url": "http://www.novainsilico.ai/"
   },
   "license": "MIT",
-  "repository":   {
-    "type" : "git",
-    "url"  : "https://github.com/nopnop/homy.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nopnop/homy.git"
   },
   "dependencies": {
-    "debug": "~0.7.3",
-    "mkdirp": "~0.3.5",
-    "underscore": "~1.5.2",
-    "when": "~2.5.1",
-    "glob": "~3.2.6",
-    "async": "~0.2.9"
+    "angular": "^1.8.3",
+    "angular-bootstrap-colorpicker": "^3.0.32",
+    "angular-ui-sortable": "^0.19.0",
+    "async": "^3.2.4",
+    "debug": "^4.3.6",
+    "glob": "^11.0.0",
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.1",
+    "mkdirp": "^3.0.1",
+    "normalize.css": "^8.0.1",
+    "underscore": "^1.13.6",
+    "when": "^3.7.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-standard": "^17.1.0"
   }
 }

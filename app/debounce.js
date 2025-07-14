@@ -1,10 +1,11 @@
 /* From http://davidwalsh.name/function-debounce */
 
-function debounce(func, wait, immediate) {
+/* eslint-disable-next-line no-unused-vars */
+function debounce (func, wait, immediate) {
   var timeout;
-  return function() {
-    var context = this, args = arguments;
-    var later = function() {
+  return function () {
+    var context = this; var args = arguments;
+    var later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };

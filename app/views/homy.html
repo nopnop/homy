@@ -1,21 +1,21 @@
 <!doctype html>
 <html ng-app="homyApp" ng-csp>
   <head>
+    <meta charset="UTF-8">
     <title>New Tab</title>
-    <link rel="stylesheet" href="../../bower_components/normalize-css/normalize.css"/>
-    <link rel="stylesheet" href="../../bower_components/ionicons/ionicons.css"/>
+    <link rel="stylesheet" href="../../node_modules/normalize.css/normalize.css"/>
+    <link rel="stylesheet" href="../styles/icons.css"/>
     <link rel="stylesheet" href="../styles/common.css"/>
     <link rel="stylesheet" href="../styles/homy.css"/>
-    <link rel="stylesheet" href="../../bower_components/angular-bootstrap-colorpicker/css/colorpicker.css"/>
-    <script src="../../bower_components/jquery/jquery.min.js"></script>
-    <script src="../../vendor/jquery-ui-1.10.3.custome-sortable-only.min.js"></script>
-    <script src="../../vendor/angular.min.js"></script>
-    <script src="../../vendor/sortable.js"></script>
-    <script src="../../bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+    <link rel="stylesheet" href="../../node_modules/angular-bootstrap-colorpicker/css/colorpicker.css"/>
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
+    <script src="../../node_modules/angular/angular.min.js"></script>
+    <script src="../../node_modules/angular-ui-sortable/dist/sortable.min.js"></script>
+    <script src="../../node_modules/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
     <script src="../service-storage.js"></script>
     <script src="../debounce.js"></script>
     <script src="../homy.js"></script>
-    <script src="../asyncTracking.js"></script>
   </head>
   <body>
     <div id="main" ng-controller="LinksListCtrl" ng-style="{background:background }">
