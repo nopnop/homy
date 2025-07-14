@@ -1,4 +1,4 @@
-Transform your new tab page into a stylish periodic table for your most-used bookmarks.
+Transform your new tab page into a stylish periodic table for your most-used bookmarks. Open-source and privacy-focused.
 
 ## Features
 
