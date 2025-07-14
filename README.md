@@ -17,7 +17,6 @@ This project is open-source, feel free to contribute.
 Clone this repository, then:
 
     npm install
-    bower install
 
 # Build
 

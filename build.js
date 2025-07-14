@@ -1,67 +1,74 @@
-var debug        = require('debug')('homy:build')
-  , copyfile     = require('./lib/copyfile')
-  , Glob         = require('glob').Glob
-  , resolve      = require('path').resolve
-  , relative     = require('path').relative
-  , join         = require('path').join
-  , fs           = require('fs')
-  , async        = require('async')
-  , lcb          = require("when/node/function").liftCallback
-;
+const debug = require('debug')('homy:build');
+const { globSync } = require('glob');
+const fs = require('fs');
+const path = require('path');
+const mkdirp = require('mkdirp');
 
+const base = __dirname;
+const dest = path.join(__dirname, './dist/homy');
 
-var dest  = join(__dirname, './dist/homy');
-var base    = __dirname;
-var pattern = '{' + [
-  '/app/**',
-  '/vendor/**',
-  './bower_components/angular-bootstrap-colorpicker/**',
-  './bower_components/ionicons/*.css',
-  './bower_components/ionicons/fonts/**',
-  './bower_components/jquery/**',
-  './bower_components/normalize-css/**',
-  '/manifest.json',
-  '/LICENSE',
-  '/README.md'
-].join(',') + '}';
+const patterns = [
+  'app/**',
+  'vendor/**',
+  'node_modules/angular-bootstrap-colorpicker/**',
+  'node_modules/jquery/dist/**',
+  'node_modules/normalize.css/**',
+  'node_modules/angular/angular.min.js',
+  'node_modules/angular-ui-sortable/dist/**',
+  'node_modules/jquery-ui/dist/**',
+  'manifest.json',
+  'LICENSE',
+  'README.md'
+];
 
+console.log('Building extension...');
 
-var g = new Glob(pattern, {cwd: base, root: base}, function (er, files) {
-  var statCache = g.statCache;
+let totalFiles = 0;
+let copiedFiles = 0;
 
-  async.mapSeries(files, function(input, done) {
-    var statInput  = statCache[input] || (statCache[input] = fs.statSync(input));
+patterns.forEach(pattern => {
+  try {
+    const files = globSync(pattern, { cwd: base });
+    totalFiles += files.length;
 
-    if(statInput.isDirectory()) {
-      return done();
-    }
+    files.forEach(file => {
+      const input = path.join(base, file);
+      const output = path.join(dest, file);
 
-    var output = join(dest,relative(base,input));
+      try {
+        const stats = fs.statSync(input);
+        if (stats.isDirectory()) {
+          mkdirp.sync(output);
+          return;
+        }
 
-    try {
-      if(fs.statSync(output).mtime.getTime() === statInput.mtime.getTime()) {
-        debug('Ignore (no changes) : "%s"',relative(base,input));
-        return done();
+        // Check if file needs copying
+        let needsCopy = true;
+        try {
+          const outputStats = fs.statSync(output);
+          if (outputStats.mtime.getTime() === stats.mtime.getTime()) {
+            needsCopy = false;
+          }
+        } catch (e) {
+          // File doesn't exist, needs copying
+        }
+
+        if (needsCopy) {
+          mkdirp.sync(path.dirname(output));
+          fs.copyFileSync(input, output);
+          fs.utimesSync(output, stats.atime, stats.mtime);
+          copiedFiles++;
+          debug(`Copied: ${file}`);
+        } else {
+          debug(`Skipped (no changes): ${file}`);
+        }
+      } catch (e) {
+        console.error(`Error processing ${file}:`, e.message);
       }
-    } catch(e) {};
-
-    debug("copy %s -> %s", relative(base,input), relative(base,output));
-
-    async.series([
-      // Copy file
-      function(done) {
-          copyfile(input, output).then(lcb(done));
-      },
-      // Update copied file mtime
-      function(done) {
-        debug('Copy mtime')
-        fs.utimes(output, statInput.atime, statInput.mtime, done);
-      }
-    ], done);
-
-  },function(err, result) {
-    debug('DONE');
-  })
-
+    });
+  } catch (e) {
+    console.error(`Error with pattern ${pattern}:`, e.message);
+  }
 });
 
+console.log(`Build complete! Processed ${totalFiles} files, copied ${copiedFiles} files to ${dest}`);
